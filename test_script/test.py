@@ -39,11 +39,18 @@ def box_label(image, box, label='', color=(0, 0, 128), txt_color=(0, 0, 255)):
                     lineType=cv2.LINE_AA)
 
 def process_frame():
+    time.sleep(0.2)
     print("处理线程启动")
     global count
     global success
-    frame=q.get()
-    while success:
+    print(success)
+    print(q.empty())
+    print(not q.empty())
+    while success or not q.empty():
+        print("run")
+        frame = q.get()
+        if frame is None:
+            break
         results = model.track(frame, conf=0.3, persist=True)
         track_ids = results[0].boxes.id.int().cpu().tolist()
         for track_id, box in zip(track_ids, results[0].boxes.data):
@@ -58,7 +65,7 @@ def process_frame():
         cv2.putText(frame, 'Orange_counting:  ' + str(max(track_ids)), (50, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
         pq.put(frame)
-
+    print('处理线程结束')
 
 def show_cap(cap):
     print("展示线程启动")
@@ -70,6 +77,7 @@ def show_cap(cap):
         start_T = time.time()
         success, frame1 = cap.read()
         q.put(frame1)
+        #print(q.empty())
         if success or (not pq.empty()):
             #start_time = time.time()
             frame_processed = pq.get()
