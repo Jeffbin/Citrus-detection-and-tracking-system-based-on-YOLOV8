@@ -27,7 +27,8 @@ streamlit run .\test_script\finally_run_worker.py
 
 ## 3.选择测试视频
 
-![image-20240612210352794](orange_video.mp4)
+<iframe height=498 width=510 src="orange_video.mp4">
+
 
 
 
