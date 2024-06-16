@@ -27,7 +27,7 @@ streamlit run .\test_script\finally_run_worker.py
 
 ## 3.选择测试视频
 
-![image-20240612210352794](C:\Users\HQR\AppData\Roaming\Typora\typora-user-images\image-20240612210352794.png)
+![image-20240612210352794](orange_video.mp4)
 
 
 
